@@ -1,0 +1,7 @@
+---
+- hosts: epam_cloud
+  tasks:
+  - name: copy ssh key
+    authorized_key:
+     user: stanislav_vasilyev@epam.com
+     key: "{{ lookup('file', '/root/.ssh/id_rsa.pub') }}"
