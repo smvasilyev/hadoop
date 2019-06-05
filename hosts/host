@@ -2,7 +2,6 @@
 ansible_ssh_user=stanislav_vasilyev@epam.com
 ansible_ssh_pass='{{ mypass }}'
 
-
 [master]
 10.6.194.78
 [workers]
