@@ -1,6 +1,26 @@
----
-- name: Copy Hadoop
-  copy: src={{ download_path }}/hadoop-{{hadoop_version}}.tar.gz dest=/tmp owner={{ user }} mode=755
+#---
+#- name: Copy Hadoop
+#  copy: src={{ download_path }}/hadoop-{{hadoop_version}}.tar.gz dest=/tmp owner={{ user }} mode=755
   
-- name: Unzip Hadoop
-  shell: "tar zxf /tmp/hadoop-{{hadoop_version}}.tar.gz -C {{ hadoop_path }}"
+#- name: Unzip Hadoop
+#  shell: "tar zxf /tmp/hadoop-{{hadoop_version}}.tar.gz -C {{ hadoop_path }}"
+
+---
+- name: download Hadoop
+  become: yes
+  get_url:
+     url: https://www-eu.apache.org/dist/hadoop/common/hadoop-{{hadoop_version}}/hadoop-{{hadoop_version}}.tar.gz
+     dest: /tmp
+#     checksum: sha1:972C9C2BDA8D0CD9B5C463B271E330394275C560
+     owner: hadoop
+     mode: 755
+
+- name: untar hadoop
+  become: yes
+  unarchive:
+     remote_src: yes
+     src: /tmp/hadoop-{{hadoop_version}}.tar.gz
+     dest: "{{ hadoop_path }}"
+     owner: hadoop
+     group: hadoop
+
