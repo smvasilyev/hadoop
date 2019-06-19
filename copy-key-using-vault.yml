@@ -5,3 +5,4 @@
     authorized_key:
      user: stanislav_vasilyev@epam.com
      key: "{{ lookup('file', '/root/.ssh/id_rsa.pub') }}"
+#test
